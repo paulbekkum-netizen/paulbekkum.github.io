@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Integrix Health - Rise from burned out to fully alive through personalized functional medicine and nutrigenomics">
+    <title>Integrix Health - From Burned Out to Full of Vitality</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===== CSS RESET & BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            /* All Seasons Brand Colors */
+            --dark-blue: #253543;
+            --teal: #05646B;
+            --brown: #82706C;
+            --tan: #DDD3CA;
+            
+            /* Integrix Accent Colors */
+            --orange: #FF6B35;
+            --gold: #FFB84D;
+            
+            /* Typography */
+            --font-primary: 'Montserrat', sans-serif;
+            --letter-spacing-heading: 60px;
+            --letter-spacing-subheading: 140px;
+            --letter-spacing-body: 5px;
+        }
+        
+        body {
+            font-family: var(--font-primary);
+            color: var(--dark-blue);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* ===== TYPOGRAPHY ===== */
+        h1, h2, h3 {
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            line-height: 1.2;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .subheading {
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        
+        p {
+            letter-spacing: 0.3px;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-block;
+            padding: 18px 40px;
+            font-family: var(--font-primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--orange), var(--gold));
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--dark-blue);
+            border: 2px solid var(--dark-blue);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--dark-blue);
+            color: white;
+        }
+        
+        .btn-dark {
+            background: var(--dark-blue);
+            color: white;
+        }
+        
+        .btn-dark:hover {
+            background: var(--teal);
+        }
+        
+        /* ===== HEADER & NAVIGATION ===== */
+        header {
+            background: var(--dark-blue);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+        
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* ===== HERO SECTION ===== */
+        .hero {
+            background: linear-gradient(135deg, rgba(37, 53, 67, 0.8), rgba(5, 100, 107, 0.6)), 
+                        url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1600') center/cover;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 1000px;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+        
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        /* ===== SECTION STYLES ===== */
+        section {
+            padding: 5rem 2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        /* ===== PROBLEM SECTION ===== */
+        .problem {
+            background: var(--tan);
+            position: relative;
+        }
+        
+        .problem-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        /* ===== APPROACH SECTION ===== */
+        .approach {
+            background: white;
+        }
+        
+        .pillars {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        
+        .pillar {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .pillar:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .pillar-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--teal);
+            border-radius: 50%;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        .pillar h3 {
+            color: var(--teal);
+            margin-bottom: 1rem;
+        }
+        
+        /* ===== PATHWAY SECTION ===== */
+        .pathway {
+            background: linear-gradient(135deg, var(--dark-blue) 50%, var(--teal) 50%);
+            color: white;
+        }
+        
+        .pathway h2,
+        .pathway .subheading {
+            color: white;
+        }
+        
+        .phases {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .phase {
+            background: white;
+            color: var(--dark-blue);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .phase:hover {
+            transform: translateY(-5px);
+        }
+        
+        .phase-number {
+            width: 60px;
+            height: 60px;
+            background: var(--orange);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        
+        .phase h3 {
+            color: var(--orange);
+            margin-bottom: 1rem;
+        }
+        
+        .phase ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .phase ul li {
+            padding-left: 1.5rem;
+            margin-bottom: 0.8rem;
+            position: relative;
+        }
+        
+        .phase ul li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--teal);
+            font-weight: bold;
+        }
+        
+        /* ===== STAKES SECTION ===== */
+        .stakes {
+            background: white;
+        }
+        
+        .stakes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        
+        .failure {
+            background: var(--dark-blue);
+            color: white;
+            padding: 3rem;
+            border-radius: 15px;
+        }
+        
+        .failure h3 {
+            color: var(--gold);
+        }
+        
+        .success {
+            background: linear-gradient(135deg, var(--teal), var(--orange));
+            color: white;
+            padding: 3rem;
+            border-radius: 15px;
+        }
+        
+        .success h3 {
+            color: white;
+        }
+        
+        /* ===== IDEAL CLIENT SECTION ===== */
+        .ideal-client {
+            background: var(--tan);
+        }
+        
+        .checklist {
+            max-width: 900px;
+            margin: 2rem auto;
+            text-align: left;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .check-icon {
+            color: var(--teal);
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        /* ===== TESTIMONIALS SECTION ===== */
+        .testimonials {
+            background: white;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .testimonial {
+            background: var(--tan);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .testimonial:before {
+            content: """;
+            font-size: 4rem;
+            color: var(--teal);
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            opacity: 0.3;
+        }
+        
+        .testimonial-before {
+            color: var(--brown);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .testimonial-after {
+            color: var(--teal);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .testimonial-quote {
+            font-style: italic;
+            margin: 1.5rem 0;
+            color: var(--dark-blue);
+        }
+        
+        .testimonial-author {
+            font-weight: 700;
+            color: var(--dark-blue);
+        }
+        
+        /* ===== COMMITMENT SECTION ===== */
+        .commitment {
+            background: var(--dark-blue);
+            color: white;
+        }
+        
+        .commitment h2,
+        .commitment h3 {
+            color: white;
+        }
+        
+        .commitment-list {
+            max-width: 900px;
+            margin: 2rem auto;
+            text-align: left;
+        }
+        
+        .commitment-item {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            border-left: 4px solid var(--gold);
+        }
+        
+        .commitment-item h4 {
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* ===== FINAL CTA SECTION ===== */
+        .final-cta {
+            background: linear-gradient(135deg, rgba(5, 100, 107, 0.95), rgba(255, 107, 53, 0.95)),
+                        url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1600') center/cover;
+            color: white;
+            text-align: center;
+            padding: 6rem 2rem;
+        }
+        
+        .final-cta h2 {
+            color: white;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .final-cta p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        
+        .trust-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+            font-size: 0.95rem;
+        }
+        
+        .trust-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--dark-blue);
+            color: white;
+            padding: 3rem 2rem 1.5rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h4 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section a:hover {
+            color: var(--gold);
+        }
+        
+        .email-signup {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .email-signup input {
+            flex: 1;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 5px;
+            font-family: var(--font-primary);
+        }
+        
+        .email-signup button {
+            padding: 0.8rem 1.5rem;
+            background: var(--teal);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        
+        .email-signup button:hover {
+            background: var(--orange);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+        
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--dark-blue);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            h3 {
+                font-size: 1.4rem;
+            }
+            
+            .stakes-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-cta {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+        
+        /* ===== UTILITY CLASSES ===== */
+        .mt-1 { margin-top: 1rem; }
+        .mt-2 { margin-top: 2rem; }
+        .mt-3 { margin-top: 3rem; }
+        .mb-1 { margin-bottom: 1rem; }
+        .mb-2 { margin-bottom: 2rem; }
+        .mb-3 { margin-bottom: 3rem; }
+    </style>
+</head>
+<body>
+    <!-- HEADER & NAVIGATION -->
+    <header>
+        <nav>
+            <a href="#" class="logo">INTEGRIX HEALTH</a>
+            <button class="mobile-menu-toggle" onclick="toggleMenu()">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#approach">Our Approach</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#success">Success Stories</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#cta" class="btn btn-primary" style="padding: 10px 25px; font-size: 0.85rem;">Get Started</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>RISE FROM BURNED OUT TO FULLY ALIVE</h1>
+            <p>Where cutting-edge nutrigenomics meets time-tested functional medicine. Discover the personalized roadmap to restore your body's natural vitality and finally feel like yourself again.</p>
+            <div class="hero-cta">
+                <a href="https://your-practice.practicebetter.io" target="_blank" class="btn btn-primary">START YOUR TRANSFORMATION</a>
+                <a href="#guide" class="btn btn-secondary">DOWNLOAD FREE GUIDE</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROBLEM SECTION -->
+    <section class="problem">
+        <div class="container">
+            <h2 class="text-center">ARE YOU TIRED OF MANAGING SYMPTOMS WHILE YOUR VITALITY SLIPS AWAY?</h2>
+            <div class="problem-content mt-3">
+                <p>You're a high-achiever who's always pushed through—until your body said "enough." Now you're dealing with chronic fatigue, brain fog, digestive chaos, hormonal imbalances, or autoimmune flare-ups that no specialist seems to fully understand.</p>
+                
+                <p>You've tried everything, but nothing addresses <strong>why</strong> your body stopped working.</p>
+                
+                <p>Standard care keeps you stuck in symptom management. You deserve transformation—not just treatment.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- APPROACH SECTION -->
+    <section class="approach" id="approach">
+        <div class="container">
+            <h2 class="text-center">THE INTEGRIX APPROACH: WHERE SCIENCE MEETS PERSONALIZATION</h2>
+            <p class="text-center subheading" style="color: var(--teal);">Like a phoenix rising from the ashes, your body has an incredible capacity for renewal—when given the right information and support.</p>
+            
+            <div class="pillars">
+                <div class="pillar">
+                    <div class="pillar-icon">🧬</div>
+                    <h3>PRECISION NUTRIGENOMICS</h3>
+                    <p>We decode your unique genetic blueprint (157+ SNPs analyzed) to create nutrition and lifestyle protocols tailored specifically to YOUR body—not generic advice.</p>
+                </div>
+                
+                <div class="pillar">
+                    <div class="pillar-icon">🥗</div>
+                    <h3>FOOD-FIRST PHILOSOPHY</h3>
+                    <p>Advanced therapeutic food plans (Elimination, Detox, Cardiometabolic, Mito, Low-FODMAP) transform your diet from fuel into powerful biological information that signals healing at the cellular level.</p>
+                </div>
+                
+                <div class="pillar">
+                    <div class="pillar-icon">🔄</div>
+                    <h3>SYSTEMS-BASED HEALING</h3>
+                    <p>We identify the interconnected imbalances across your seven core physiological systems—because true healing happens when we address root causes, not isolated symptoms.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PATHWAY SECTION -->
+    <section class="pathway" id="services">
+        <div class="container">
+            <h2 class="text-center">YOUR 3-PHASE JOURNEY FROM ASHES TO VITALITY</h2>
+            <p class="text-center subheading">At Integrix Health, transformation isn't a mystery—it's a proven pathway.</p>
+            
+            <div class="phases">
+                <div class="phase">
+                    <div class="phase-number">1</div>
+                    <h3>IGNITE (DISCOVER)</h3>
+                    <p><strong>Uncover the 'WHY' behind your symptoms</strong></p>
+                    <ul>
+                        <li>Comprehensive health detective work</li>
+                        <li>Advanced nutrigenomic testing (3x4 Genetics)</li>
+                        <li>Biomarker analysis revealing hidden imbalances</li>
+                        <li>Your personalized transformation blueprint</li>
+                    </ul>
+                </div>
+                
+                <div class="phase">
+                    <div class="phase-number">2</div>
+                    <h3>RISE (RESTORE)</h3>
+                    <p><strong>Implement your personalized healing protocol</strong></p>
+                    <ul>
+                        <li>Genetics-based therapeutic food plans</li>
+                        <li>Targeted nutraceutical protocols</li>
+                        <li>Lifestyle optimization: sleep, stress, movement</li>
+                        <li>Rebalance: gut, detox, inflammation, energy</li>
+                    </ul>
+                </div>
+                
+                <div class="phase">
+                    <div class="phase-number">3</div>
+                    <h3>SOAR (THRIVE)</h3>
+                    <p><strong>Sustain vitality and expand potential</strong></p>
+                    <ul>
+                        <li>Sustained vitality and optimization</li>
+                        <li>Deep understanding of your body's needs</li>
+                        <li>Shift from reactive to proactive health mastery</li>
+                        <li>Expanded freedom: time, energy, purpose</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="text-center mt-3">
+                <a href="https://your-practice.practicebetter.io" target="_blank" class="btn btn-dark">BEGIN YOUR RISE</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- STAKES SECTION -->
+    <section class="stakes">
+        <div class="container">
+            <h2 class="text-center">TWO PATHS. ONE CHOICE.</h2>
+            
+            <div class="stakes-grid">
+                <div class="failure">
+                    <h3>THE COST OF WAITING</h3>
+                    <p>Continuing the cycle of frustration, fatigue, and symptom management. Never understanding why your body isn't working. Spending years and thousands of dollars without real answers.</p>
+                    <p>Watching your vitality, relationships, and purpose suffer while you simply survive instead of thrive.</p>
+                    <p><strong>The small compromises compound. The light dims a little more each year.</strong></p>
+                </div>
+                
+                <div class="success">
+                    <h3>YOUR TRANSFORMATION AWAITS</h3>
+                    <p>Restored body function and lasting vitality. Finally understand how YOUR genetics, diet, lifestyle, and environment interact.</p>
+                    <p>Be empowered to "turn genes on or off" to prevent disease. Reclaim your energy, mental clarity, and confidence.</p>
+                    <p><strong>Become the health optimizer and proactive partner in your own healing—not just a passive patient.</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- IDEAL CLIENT SECTION -->
+    <section class="ideal-client">
+        <div class="container">
+            <h2 class="text-center">IS INTEGRIX RIGHT FOR YOU?</h2>
+            <p class="text-center subheading" style="color: var(--teal);">YOU'RE THE PERFECT FIT IF YOU:</p>
+            
+            <div class="checklist">
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <p><strong>Have complex, chronic health issues</strong> that conventional care hasn't resolved</p>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <p><strong>Experience persistent fatigue, digestive problems, brain fog, hormonal dysfunction,</strong> or autoimmune symptoms</p>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <p><strong>Are ready to be an ACTIVE PARTNER</strong> in your healing journey</p>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <p><strong>Want ROOT CAUSE answers</strong>—not just another prescription</p>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <p><strong>Are willing to track habits and commit</strong> to dietary/lifestyle changes</p>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <p><strong>Seek precision, genetics-based solutions</strong>—not one-size-fits-all approaches</p>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="check-icon">✓</div>
+                    <p><strong>Are a "health optimizer"</strong> wanting to prevent future illness</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section class="testimonials" id="success">
+        <div class="container">
+            <h2 class="text-center">REAL TRANSFORMATIONS: FROM BURNED OUT TO THRIVING</h2>
+            <p class="text-center subheading" style="color: var(--teal);">Real people. Real results. Real vitality.</p>
+            
+            <div class="testimonial-grid">
+                <div class="testimonial">
+                    <p class="testimonial-before">Before: Chronic fatigue, severe IBS, brain fog for 6 years</p>
+                    <p class="testimonial-after">After: Energy restored, digestion healed, mental clarity—all in 4 months</p>
+                    <p class="testimonial-quote">"For six years, I thought I was broken. Integrix found root causes conventional doctors missed—SIBO, MTHFR variants, food sensitivities, mitochondrial dysfunction. Within four months, I got my life back."</p>
+                    <p class="testimonial-author">— Sarah M., Marketing Executive</p>
+                </div>
+                
+                <div class="testimonial">
+                    <p class="testimonial-before">Before: Type 2 diabetes, high blood pressure, 60+ lbs overweight</p>
+                    <p class="testimonial-after">After: A1C normalized, off medications, lost 52 lbs in 6 months</p>
+                    <p class="testimonial-quote">"My doctor said I'd be on medications for life. Integrix showed me a different path—addressing root causes instead of managing disease. Six months later, I'm off all meds with better labs than I've had in 20 years."</p>
+                    <p class="testimonial-author">— Michael T., Technology Consultant</p>
+                </div>
+                
+                <div class="testimonial">
+                    <p class="testimonial-before">Before: Hashimoto's thyroiditis, crushing fatigue, hair loss, anxiety</p>
+                    <p class="testimonial-after">After: Thyroid antibodies dropped 70%, energy restored, hair regrowing</p>
+                    <p class="testimonial-quote">"Integrix didn't just treat my thyroid—they identified WHY my immune system was attacking it. By healing my gut and eliminating triggers, my antibodies are the lowest since diagnosis. I got my life back."</p>
+                    <p class="testimonial-author">— Jennifer K., Teacher & Mother</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMMITMENT SECTION -->
+    <section class="commitment">
+        <div class="container">
+            <h2 class="text-center">TRUE TRANSFORMATION REQUIRES PARTNERSHIP</h2>
+            <p class="text-center subheading" style="color: var(--gold);">Integrix isn't passive treatment—it's active transformation.</p>
+            
+            <div class="commitment-list">
+                <div class="commitment-item">
+                    <h4>COMMIT</h4>
+                    <p>Track daily habits using our DNL Journal—food, sleep, stress, exercise, symptoms</p>
+                </div>
+                
+                <div class="commitment-item">
+                    <h4>COLLABORATE</h4>
+                    <p>Work closely with your practitioner to set SMART goals and adjust protocols</p>
+                </div>
+                
+                <div class="commitment-item">
+                    <h4>IMPLEMENT</h4>
+                    <p>Follow your personalized food plan and lifestyle protocols consistently</p>
+                </div>
+                
+                <div class="commitment-item">
+                    <h4>TRUST THE PROCESS</h4>
+                    <p>Allow your body time to heal and rebuild—transformation takes commitment</p>
+                </div>
+            </div>
+            
+            <p class="text-center mt-3" style="font-size: 1.3rem; color: var(--gold);"><strong>When you show up fully, your phoenix moment happens.</strong></p>
+        </div>
+    </section>
+
+    <!-- FINAL CTA SECTION -->
+    <section class="final-cta" id="cta">
+        <div class="container">
+            <h2>READY TO RISE?</h2>
+            <p>Your transformation from burned out to vitally alive starts with one decision.</p>
+            
+            <div class="cta-buttons">
+                <a href="https://your-practice.practicebetter.io" target="_blank" class="btn btn-primary">SCHEDULE YOUR DISCOVERY CALL</a>
+                <a href="https://your-practice.practicebetter.io/programs" target="_blank" class="btn btn-secondary">EXPLORE PROGRAMS</a>
+            </div>
+            
+            <div class="trust-indicators">
+                <div class="trust-indicator">
+                    <span>✓</span>
+                    <span>Free 30-minute consultation</span>
+                </div>
+                <div class="trust-indicator">
+                    <span>✓</span>
+                    <span>Custom transformation roadmap</span>
+                </div>
+                <div class="trust-indicator">
+                    <span>✓</span>
+                    <span>No pressure, just clarity</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Integrix Health</h4>
+                <p>Where Science Meets Personalization</p>
+                <p style="margin-top: 1rem;">Powered by All Seasons Integrative Health</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#approach">Our Approach</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#success">Success Stories</a></li>
+                    <li><a href="#cta">Get Started</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>Email: info@integrix.health</p>
+                <p>Phone: (555) 123-4567</p>
+                <p style="margin-top: 1rem;">
+                    <a href="#">Facebook</a> | 
+                    <a href="#">Instagram</a> | 
+                    <a href="#">LinkedIn</a>
+                </p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Join Our Community</h4>
+                <p>Root cause insights + transformation stories</p>
+                <div class="email-signup">
+                    <input type="email" placeholder="Your email">
+                    <button>Join</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Integrix Health. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Mobile menu toggle
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    document.getElementById('navLinks').classList.remove('active');
+                }
+            });
+        });
+        
+        // Fade in elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+        
+        // Email signup form handler
+        document.querySelector('.email-signup button').addEventListener('click', function() {
+            const emailInput = document.querySelector('.email-signup input');
+            const email = emailInput.value;
+            
+            if (email && email.includes('@')) {
+                alert('Thank you for joining! Check your email for your welcome message.');
+                emailInput.value = '';
+            } else {
+                alert('Please enter a valid email address.');
+            }
+        });
+        
+        // Add sticky header on scroll
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.2)';
+            } else {
+                header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+            }
+            
+            lastScroll = currentScroll;
+        });
+    </script>
+</body>
+</html>

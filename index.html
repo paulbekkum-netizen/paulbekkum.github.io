@@ -360,6 +360,215 @@
             font-weight: bold;
         }
         
+        /* ===== CARE BY DESIGN SECTION ===== */
+        .care-by-design {
+            background: var(--tan);
+            overflow: hidden;
+        }
+
+        .care-by-design .intro {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            text-align: center;
+        }
+
+        .continuum-labels {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1100px;
+            margin: 0 auto 1rem;
+            padding: 0 0.5rem;
+        }
+
+        .continuum-label {
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            color: var(--brown);
+        }
+
+        .continuum-label.right {
+            text-align: right;
+        }
+
+        .continuum-track {
+            max-width: 1100px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .continuum-arrow {
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+            position: relative;
+        }
+
+        .tier-card {
+            flex: 1;
+            padding: 2rem 1.5rem;
+            position: relative;
+            clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 50%, calc(100% - 18px) 100%, 0 100%, 18px 50%);
+            margin-right: -10px;
+            transition: transform 0.3s ease;
+            cursor: default;
+        }
+
+        .tier-card:first-child {
+            clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 50%, calc(100% - 18px) 100%, 0 100%);
+        }
+
+        .tier-card:last-child {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 18px 50%);
+            margin-right: 0;
+        }
+
+        .tier-card:hover {
+            transform: scaleY(1.04);
+            z-index: 2;
+        }
+
+        .tier-1 { background: var(--dark-blue); color: white; }
+        .tier-2 { background: var(--teal); color: white; }
+        .tier-3 { background: var(--orange); color: white; }
+        .tier-4 { background: linear-gradient(135deg, var(--orange), var(--gold)); color: white; }
+
+        .tier-badge {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            opacity: 0.75;
+            margin-bottom: 0.4rem;
+        }
+
+        .tier-name {
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .tier-mandate {
+            font-size: 0.8rem;
+            opacity: 0.85;
+            line-height: 1.4;
+            margin-bottom: 0.75rem;
+        }
+
+        .tier-payer {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.2);
+        }
+
+        .payer-line {
+            max-width: 1100px;
+            margin: 1.5rem auto 0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .payer-line-bar {
+            height: 3px;
+            flex: 1;
+        }
+
+        .payer-line-bar.insurance { background: var(--teal); }
+        .payer-line-bar.selfpay { background: var(--orange); }
+
+        .payer-line-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--dark-blue);
+            white-space: nowrap;
+            text-align: center;
+            padding: 4px 12px;
+            border: 2px solid var(--dark-blue);
+            border-radius: 20px;
+        }
+
+        .care-by-design-bottom {
+            max-width: 1100px;
+            margin: 3rem auto 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .cbd-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--teal);
+        }
+
+        .cbd-card.accent {
+            border-left-color: var(--orange);
+        }
+
+        .cbd-card h4 {
+            color: var(--teal);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .cbd-card.accent h4 {
+            color: var(--orange);
+        }
+
+        .cbd-card p {
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 900px) {
+            .continuum-arrow {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .tier-card,
+            .tier-card:first-child,
+            .tier-card:last-child {
+                clip-path: none;
+                margin-right: 0;
+                border-radius: 10px;
+                padding: 1.5rem;
+            }
+
+            .continuum-labels {
+                display: none;
+            }
+
+            .payer-line {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .payer-line-bar {
+                width: 100%;
+                height: 2px;
+            }
+
+            .care-by-design-bottom {
+                grid-template-columns: 1fr;
+            }
+        }
+
         /* ===== STAKES SECTION ===== */
         .stakes {
             background: white;
@@ -722,6 +931,7 @@
                 <li><a href="#home">Home</a></li>
                 <li><a href="#approach">Our Approach</a></li>
                 <li><a href="#services">Services</a></li>
+                <li><a href="#continuum">Care by Design</a></li>
                 <li><a href="#success">Success Stories</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li><a href="#cta" class="btn btn-primary" style="padding: 10px 25px; font-size: 0.85rem;">Get Started</a></li>
@@ -829,6 +1039,68 @@
             
             <div class="text-center mt-3">
                 <a href="https://your-practice.practicebetter.io" target="_blank" class="btn btn-dark">BEGIN YOUR RISE</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CARE BY DESIGN CONTINUUM SECTION -->
+    <section class="care-by-design" id="continuum">
+        <div class="container">
+            <h2 class="text-center">CARE BY DESIGN</h2>
+            <div class="intro">
+                <p class="subheading" style="color: var(--teal);">ONE CONTINUUM. FOUR TIERS. FROM PAIN RELIEF TO LIFELONG VITALITY.</p>
+                <p>Functional Rehabilitation and Functional Medicine aren't separate services — they are the same ascending staircase. You enter in pain and are carried through relief, into restored function, optimized past what insurance pays for, then held at your optimum for life. Traditional care stops at the first rung. Care by Design is the whole staircase.</p>
+            </div>
+
+            <div class="continuum-labels">
+                <span class="continuum-label">← Functional Rehabilitation</span>
+                <span class="continuum-label right">Functional Medicine →</span>
+            </div>
+
+            <div class="continuum-track">
+                <div class="continuum-arrow">
+                    <div class="tier-card tier-1">
+                        <div class="tier-badge">Tier 1</div>
+                        <div class="tier-name">Relief by Design</div>
+                        <div class="tier-mandate">Pain + symptom reduction. Get you not-broken.</div>
+                        <span class="tier-payer">Insurance</span>
+                    </div>
+                    <div class="tier-card tier-2">
+                        <div class="tier-badge">Tier 2</div>
+                        <div class="tier-name">Restoration by Design</div>
+                        <div class="tier-mandate">Restore function toward baseline — objectively measured.</div>
+                        <span class="tier-payer">Insurance</span>
+                    </div>
+                    <div class="tier-card tier-3">
+                        <div class="tier-badge">Tier 3</div>
+                        <div class="tier-name">Vitality by Design™</div>
+                        <div class="tier-mandate">Optimize from 85th percentile to 100th and beyond.</div>
+                        <span class="tier-payer">Self-Pay</span>
+                    </div>
+                    <div class="tier-card tier-4">
+                        <div class="tier-badge">Tier 4</div>
+                        <div class="tier-name">Longevity by Design</div>
+                        <div class="tier-mandate">Sustain your vitality and re-clock your biological age across a lifetime.</div>
+                        <span class="tier-payer">Self-Pay</span>
+                    </div>
+                </div>
+
+                <div class="payer-line">
+                    <div class="payer-line-bar insurance"></div>
+                    <div class="payer-line-label">85% Payer Line — Where Insurance Stops &amp; Integrix Begins</div>
+                    <div class="payer-line-bar selfpay"></div>
+                </div>
+            </div>
+
+            <div class="care-by-design-bottom">
+                <div class="cbd-card">
+                    <h4>The Measurement is the Moat</h4>
+                    <p>The transition from Tier 2 to Tier 3 is measured objectively — not decided by clinician judgment. When your data shows you've reached your functional plateau, you see the gap between "not-broken" and optimal. That gap is the value proposition made literal: insurance's finish line is where Integrix's begins.</p>
+                </div>
+                <div class="cbd-card accent">
+                    <h4>Normal Isn't Optimal</h4>
+                    <p>Insurance subsidizes your entry at Tier 1–2. By the time you reach the 85% line, you're assessed, trusting, and ready. One acquisition — four stages of transformation. From the first pain visit to the tenth year of maintenance, the arc itself is the product.</p>
+                </div>
             </div>
         </div>
     </section>

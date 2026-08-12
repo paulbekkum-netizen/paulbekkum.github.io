@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Operational Health Assessment — a structured 64-item business diagnostic that scores where a business is actually losing capacity, margin, and control.">
+<title>Operational Health Assessment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   CONFIGURATION NOTE
+   All behaviour you are likely to change (where results get
+   emailed, your booking link, your brand colors) lives in the
+   :root block below and in the CONFIG object near the top of
+   the <script> tag at the bottom of this file.
+   ============================================================ */
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --navy:#253543;
+  --navy-2:#1a2731;
+  --teal:#05646B;
+  --teal-lt:#0b8790;
+  --stone:#82706C;
+  --sand:#DDD3CA;
+  --paper:#F6F4F1;
+  --white:#fff;
+  --orange:#FF6B35;
+  --gold:#FFB84D;
+
+  --band-optimal:#2E7D5B;
+  --band-mild:#C79A16;
+  --band-moderate:#E07A2F;
+  --band-severe:#C0392B;
+
+  --line:#E2DDD7;
+  --font:'Montserrat',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --shadow:0 2px 8px rgba(37,53,67,.06),0 12px 32px rgba(37,53,67,.08);
+  --radius:10px;
+}
+
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font);
+  color:var(--navy);
+  background:var(--paper);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ---------- shell ---------- */
+.wrap{max-width:920px;margin:0 auto;padding:0 20px}
+.stickytop{position:sticky;top:0;z-index:50;box-shadow:0 2px 10px rgba(0,0,0,.12)}
+.topbar{background:var(--navy);color:#fff;padding:14px 0}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{
+  font-weight:700;text-transform:uppercase;letter-spacing:2px;
+  font-size:.95rem;color:#fff;text-decoration:none;
+}
+.brand span{color:var(--gold)}
+.topbar .meta{font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--sand);text-align:right}
+
+/* ---------- progress ---------- */
+.progress-shell{background:var(--navy-2);height:6px}
+.progress-bar{height:100%;width:0;background:linear-gradient(90deg,var(--teal-lt),var(--gold));transition:width .35s ease}
+.progress-shell[hidden]{display:none}
+
+/* ---------- cards / type ---------- */
+.card{
+  background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:36px;margin:28px 0;
+}
+h1{font-size:2.1rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;line-height:1.15;margin-bottom:10px}
+h2{font-size:1.35rem;font-weight:700;text-transform:uppercase;letter-spacing:1.6px;margin-bottom:8px}
+h3{font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:1.4px;margin-bottom:10px}
+.lede{font-size:1.05rem;color:var(--stone);margin-bottom:22px}
+p{margin-bottom:12px}
+.small{font-size:.86rem}
+.muted{color:var(--stone)}
+.rule{height:1px;background:var(--line);border:0;margin:26px 0}
+.eyebrow{
+  font-size:.72rem;letter-spacing:2.5px;text-transform:uppercase;
+  font-weight:700;color:var(--teal);margin-bottom:8px;
+}
+
+/* ---------- admin grid ---------- */
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:20px 0}
+.fact{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:14px 16px}
+.fact dt{font-size:.7rem;letter-spacing:1.6px;text-transform:uppercase;font-weight:700;color:var(--teal);margin-bottom:4px}
+.fact dd{font-size:.92rem}
+
+/* ---------- scale key ---------- */
+.key{border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:18px 0}
+.key-row{display:grid;grid-template-columns:52px 1fr;border-top:1px solid var(--line)}
+.key-row:first-child{border-top:0}
+.key-row .n{
+  background:var(--navy);color:#fff;font-weight:700;display:flex;
+  align-items:center;justify-content:center;font-size:1rem;
+}
+.key-row .t{padding:10px 14px;font-size:.9rem}
+
+/* ---------- forms ---------- */
+label.fld{display:block;margin-bottom:14px}
+label.fld .lab{
+  display:block;font-size:.72rem;letter-spacing:1.6px;text-transform:uppercase;
+  font-weight:700;color:var(--navy);margin-bottom:6px;
+}
+input[type=text],input[type=email],select,textarea{
+  width:100%;font-family:var(--font);font-size:.95rem;color:var(--navy);
+  padding:11px 13px;border:1px solid var(--line);border-radius:8px;background:#fff;
+}
+input:focus,select:focus,textarea:focus{outline:3px solid rgba(5,100,107,.35);outline-offset:1px;border-color:var(--teal)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}
+@media(max-width:620px){.grid2{grid-template-columns:1fr}}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-block;font-family:var(--font);font-weight:700;text-transform:uppercase;
+  letter-spacing:1.6px;font-size:.85rem;padding:14px 30px;border-radius:50px;
+  border:2px solid transparent;cursor:pointer;text-decoration:none;transition:all .2s ease;
+}
+.btn-primary{background:linear-gradient(135deg,var(--orange),var(--gold));color:#fff}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(255,107,53,.32)}
+.btn-dark{background:var(--navy);color:#fff}
+.btn-dark:hover{background:var(--teal)}
+.btn-ghost{background:transparent;color:var(--navy);border-color:var(--navy)}
+.btn-ghost:hover{background:var(--navy);color:#fff}
+.btn:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+.btn[disabled]{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:26px}
+.actions.right{justify-content:space-between}
+
+/* ---------- section header ---------- */
+.sec-head{
+  background:var(--navy);color:#fff;border-radius:var(--radius) var(--radius) 0 0;
+  padding:24px 30px;margin:28px -1px 0;
+}
+.sec-head .n{font-size:.72rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:700}
+.sec-head h2{margin:6px 0 4px;color:#fff}
+.sec-head .sub{color:var(--sand);font-size:.9rem;margin:0}
+.sec-body{
+  background:#fff;border:1px solid var(--line);border-top:0;
+  border-radius:0 0 var(--radius) var(--radius);box-shadow:var(--shadow);padding:8px 30px 30px;
+}
+
+/* mini legend sticky inside section */
+.mini-key{
+  display:flex;gap:6px;flex-wrap:wrap;font-size:.68rem;letter-spacing:.6px;
+  color:var(--stone);padding:14px 0 6px;border-bottom:1px solid var(--line);margin-bottom:6px;
+}
+.mini-key b{color:var(--navy)}
+
+/* ---------- items ---------- */
+.item{padding:16px 0;border-bottom:1px solid var(--line)}
+.item:last-of-type{border-bottom:0}
+.item.unanswered{background:#FFF6F2;box-shadow:inset 3px 0 0 var(--orange);padding-left:12px;margin-left:-12px;border-radius:4px}
+.item .q{display:flex;gap:12px;margin-bottom:10px;font-size:.98rem;font-weight:500}
+.item .q .idx{color:var(--teal);font-weight:700;min-width:26px}
+.scale{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-left:38px}
+@media(max-width:620px){.scale{margin-left:0}}
+.scale input{position:absolute;opacity:0;width:0;height:0}
+.scale label{
+  display:block;text-align:center;padding:11px 4px;border:1.5px solid var(--line);
+  border-radius:8px;cursor:pointer;font-weight:700;font-size:1rem;background:#fff;
+  transition:all .15s ease;user-select:none;
+}
+.scale label small{display:block;font-size:.58rem;font-weight:600;letter-spacing:.4px;color:var(--stone);text-transform:uppercase;margin-top:2px}
+.scale label:hover{border-color:var(--teal);background:#F2F8F8}
+.scale input:focus-visible + label{outline:3px solid var(--teal);outline-offset:2px}
+.scale input:checked + label{background:var(--navy);border-color:var(--navy);color:#fff}
+.scale input:checked + label small{color:var(--sand)}
+.scale input[value="3"]:checked + label,.scale input[value="4"]:checked + label{background:var(--orange);border-color:var(--orange)}
+.scale input[value="4"]:checked + label small,.scale input[value="3"]:checked + label small{color:#fff}
+
+.notice{
+  background:#FFF6F2;border:1px solid var(--orange);color:#8C3312;
+  border-radius:8px;padding:12px 16px;font-size:.88rem;margin-top:18px;font-weight:600;
+}
+.notice[hidden]{display:none}
+
+/* ---------- results ---------- */
+.score-hero{
+  background:var(--navy);color:#fff;border-radius:var(--radius);
+  padding:34px;text-align:center;margin-bottom:0;
+}
+.score-hero .num{font-size:4.2rem;font-weight:700;line-height:1;letter-spacing:-1px}
+.score-hero .den{font-size:1.4rem;color:var(--sand);font-weight:500}
+.score-hero .band{
+  display:inline-block;margin-top:14px;padding:8px 22px;border-radius:50px;
+  font-weight:700;text-transform:uppercase;letter-spacing:2px;font-size:.82rem;
+}
+.band-optimal{background:var(--band-optimal)}
+.band-mild{background:var(--band-mild)}
+.band-moderate{background:var(--band-moderate)}
+.band-severe{background:var(--band-severe)}
+.score-hero .action{margin:16px auto 0;max-width:560px;color:var(--sand);font-size:.95rem}
+
+.callout{
+  background:#fff;border:1px solid var(--line);border-left:5px solid var(--teal);
+  border-radius:8px;padding:20px 24px;margin:18px 0;
+}
+.callout.warn{border-left-color:var(--orange)}
+.callout.crit{border-left-color:var(--band-severe)}
+.callout h3{margin-bottom:6px}
+.callout p:last-child{margin-bottom:0}
+
+/* bar chart */
+.bars{margin-top:8px}
+.bar-row{display:grid;grid-template-columns:190px 1fr 62px;gap:12px;align-items:center;padding:9px 0}
+@media(max-width:620px){.bar-row{grid-template-columns:1fr;gap:4px;padding:12px 0;border-bottom:1px solid var(--line)}}
+.bar-row .name{font-size:.82rem;font-weight:600;text-transform:uppercase;letter-spacing:.8px}
+.bar-row .name .tag{display:inline-block;background:var(--orange);color:#fff;font-size:.6rem;padding:2px 7px;border-radius:20px;margin-left:6px;letter-spacing:1px;vertical-align:1px}
+.track{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:5px;height:24px;overflow:hidden}
+.fill{height:100%;border-radius:4px 0 0 4px;transition:width .6s ease}
+.threshold{position:absolute;top:-2px;bottom:-2px;left:50%;width:2px;background:var(--navy);opacity:.55}
+.bar-row .val{font-weight:700;font-size:.9rem;text-align:right}
+@media(max-width:620px){.bar-row .val{text-align:left}}
+.legend{font-size:.75rem;color:var(--stone);margin-top:10px}
+
+.pattern{border:1px solid var(--line);border-radius:8px;padding:16px 18px;margin-bottom:12px;background:#fff}
+.pattern h4{font-size:.86rem;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:6px}
+.pattern p{margin:0;font-size:.92rem;color:var(--stone)}
+
+table.summary{width:100%;border-collapse:collapse;margin-top:10px;font-size:.92rem}
+table.summary th,table.summary td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+table.summary th{font-size:.7rem;letter-spacing:1.4px;text-transform:uppercase;color:var(--teal)}
+table.summary td.num,table.summary th.num{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+table.summary tr.total td{border-top:2px solid var(--navy);border-bottom:0;font-weight:700;font-size:1rem}
+table.summary tr.hot td{background:#FFF6F2}
+
+textarea.code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.78rem;min-height:88px;word-break:break-all}
+
+.cta{
+  background:linear-gradient(135deg,var(--teal),var(--navy));color:#fff;
+  border-radius:var(--radius);padding:34px;text-align:center;
+}
+.cta h2{color:#fff}
+.cta p{color:var(--sand);max-width:560px;margin:0 auto 20px}
+
+details.tool{border:1px solid var(--line);border-radius:8px;background:#fff;padding:0;margin-top:16px}
+details.tool summary{
+  cursor:pointer;padding:14px 18px;font-weight:700;font-size:.82rem;
+  text-transform:uppercase;letter-spacing:1.4px;
+}
+details.tool .inner{padding:0 18px 18px}
+
+footer{padding:32px 0 60px;text-align:center;color:var(--stone);font-size:.8rem}
+
+[hidden]{display:none !important}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* ---------- print ---------- */
+@media print{
+  body{background:#fff}
+  .topbar,.progress-shell,.no-print,footer{display:none !important}
+  .card,.sec-body{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}
+  .score-hero,.cta{background:#fff !important;color:#000 !important;border:2px solid #000}
+  .score-hero .den,.score-hero .action,.cta p{color:#333 !important}
+  .score-hero .band{border:1.5px solid #000;color:#000 !important;background:#fff !important}
+  .fill{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+  a[href]:after{content:""}
+}
+</style>
+</head>
+<body>
+
+<div class="stickytop no-print">
+  <div class="topbar">
+    <div class="wrap">
+      <a class="brand" href="/">Practice<span>Ops</span></a>
+      <div class="meta">Operational Health<br>Assessment</div>
+    </div>
+  </div>
+  <div class="progress-shell" id="progressShell" hidden>
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+</div>
+
+<main class="wrap" id="main">
+
+<!-- ============ INTRO ============ -->
+<section id="screen-intro" class="screen">
+  <div class="card">
+    <div class="eyebrow">A structured 64-item business diagnostic</div>
+    <h1>Operational Health Assessment</h1>
+    <p class="lede">This is not a quiz and not a report card. It produces a work order: one scored number, eight scored areas, and a single indicated place to intervene first.</p>
+
+    <dl class="facts">
+      <div class="fact"><dt>Who completes it</dt><dd>The owner-operator. If you have a manager or second-in-command, have them complete a separate copy independently.</dd></div>
+      <div class="fact"><dt>Time to complete</dt><dd>8–12 minutes. Do not deliberate. First-instinct scores are more accurate than considered ones.</dd></div>
+      <div class="fact"><dt>Timeframe</dt><dd>Rate each item based on the <strong>last 90 days</strong>.</dd></div>
+      <div class="fact"><dt>Retest</dt><dd>90 days after intervention begins. Same instrument, same rater, no reference to prior scores until after completion.</dd></div>
+    </dl>
+
+    <hr class="rule">
+
+    <h3>Scoring key</h3>
+    <p class="small muted">Rate each item on the following scale. Two things are being measured at once: how often it happens, and how much it costs you when it does.</p>
+    <div class="key">
+      <div class="key-row"><div class="n">0</div><div class="t">Never or almost never occurs</div></div>
+      <div class="key-row"><div class="n">1</div><div class="t">Occasionally occurs — impact is <strong>not</strong> severe</div></div>
+      <div class="key-row"><div class="n">2</div><div class="t">Occasionally occurs — impact <strong>is</strong> severe</div></div>
+      <div class="key-row"><div class="n">3</div><div class="t">Frequently occurs — impact is <strong>not</strong> severe</div></div>
+      <div class="key-row"><div class="n">4</div><div class="t">Frequently occurs — impact <strong>is</strong> severe</div></div>
+    </div>
+
+    <hr class="rule">
+
+    <h3>Before you begin</h3>
+    <div class="grid2">
+      <label class="fld"><span class="lab">Your name</span><input type="text" id="raterName" autocomplete="name" placeholder="Optional"></label>
+      <label class="fld"><span class="lab">Business name</span><input type="text" id="bizName" autocomplete="organization" placeholder="Optional"></label>
+      <label class="fld"><span class="lab">Email</span><input type="email" id="raterEmail" autocomplete="email" placeholder="Optional — to receive your results"></label>
+      <label class="fld"><span class="lab">Your role</span>
+        <select id="raterRole">
+          <option value="Owner-operator">Owner-operator</option>
+          <option value="Manager / second-in-command">Manager / second-in-command</option>
+          <option value="Partner">Partner</option>
+          <option value="Other">Other</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-primary" id="startBtn">Begin assessment</button>
+      <button class="btn btn-ghost" id="resumeBtn" hidden>Resume saved answers</button>
+    </div>
+    <p class="small muted" style="margin-top:14px">Your answers are stored only in this browser until you choose to send them. Nothing is transmitted as you type.</p>
+
+    <details class="tool no-print">
+      <summary>Compare an owner copy against a manager copy</summary>
+      <div class="inner">
+        <p class="small muted">Each completed assessment produces a result code. Paste two codes here to see where the leadership team is not seeing the same business. A spread of more than 8 points on any section usually outranks whatever the scores themselves say.</p>
+        <label class="fld"><span class="lab">Result code A</span><textarea class="code" id="cmpA" placeholder="Paste the first result code"></textarea></label>
+        <label class="fld"><span class="lab">Result code B</span><textarea class="code" id="cmpB" placeholder="Paste the second result code"></textarea></label>
+        <button class="btn btn-dark" id="cmpBtn">Compare</button>
+        <div id="cmpOut" style="margin-top:18px"></div>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ QUESTIONS ============ -->
+<section id="screen-questions" class="screen" hidden>
+  <div class="sec-head">
+    <div class="n" id="secCounter"></div>
+    <h2 id="secTitle"></h2>
+    <p class="sub" id="secSub"></p>
+  </div>
+  <div class="sec-body">
+    <div class="mini-key">
+      <span><b>0</b> never</span><span>·</span>
+      <span><b>1</b> occasional / not severe</span><span>·</span>
+      <span><b>2</b> occasional / severe</span><span>·</span>
+      <span><b>3</b> frequent / not severe</span><span>·</span>
+      <span><b>4</b> frequent / severe</span>
+    </div>
+    <form id="itemsForm"></form>
+    <div class="notice" id="secNotice" hidden role="alert"></div>
+    <div class="actions right no-print">
+      <button class="btn btn-ghost" id="backBtn" type="button">Back</button>
+      <button class="btn btn-primary" id="nextBtn" type="button">Next section</button>
+    </div>
+    <p class="small muted" style="margin-top:14px" id="secProgressText"></p>
+  </div>
+</section>
+
+<!-- ============ RESULTS ============ -->
+<section id="screen-results" class="screen" hidden>
+  <div class="score-hero" style="margin-top:28px">
+    <div class="eyebrow" style="color:var(--gold)">Total Operational Burden</div>
+    <div><span class="num" id="totalNum">0</span><span class="den"> / 256</span></div>
+    <div class="band" id="bandChip">—</div>
+    <p class="action" id="bandAction"></p>
+  </div>
+
+  <div class="card">
+    <h2>The treatment target</h2>
+    <div id="targetBox"></div>
+    <p class="small muted">Two rules override the total. <strong>The Bottleneck Rule:</strong> any single section scoring 16 or higher is the treatment target regardless of total burden — one area, not all eight. <strong>The Capacity Rule:</strong> if Owner Capacity scores 20 or higher it is addressed first no matter what else scored higher, because an operator in that range cannot execute any downstream intervention.</p>
+  </div>
+
+  <div class="card">
+    <h2>Section scores</h2>
+    <p class="small muted">The vertical line marks 16 — half of the maximum, and the threshold at which a section becomes the treatment target.</p>
+    <div class="bars" id="bars"></div>
+    <p class="legend">Each section is scored out of 32. Total out of 256.</p>
+  </div>
+
+  <div class="card">
+    <h2>Reading the pattern, not just the number</h2>
+    <div id="patterns"></div>
+    <p class="small muted" style="margin-top:14px">For pattern purposes, a section is read as <strong>high</strong> at 16 or above and <strong>low</strong> at 8 or below.</p>
+  </div>
+
+  <div class="card">
+    <h2>Score summary</h2>
+    <table class="summary" id="summaryTable"></table>
+    <div class="actions no-print">
+      <button class="btn btn-dark" id="printBtn">Print / Save as PDF</button>
+      <button class="btn btn-ghost" id="copyBtn">Copy summary</button>
+      <button class="btn btn-ghost" id="emailBtn">Email my results</button>
+      <button class="btn btn-ghost" id="restartBtn">Start over</button>
+    </div>
+    <details class="tool no-print">
+      <summary>Result code (for retest and owner/manager comparison)</summary>
+      <div class="inner">
+        <p class="small muted">Save this code. Paste it into the comparison tool on the first page to compare an owner copy against a manager copy, or to compare a 90-day retest against this baseline.</p>
+        <textarea class="code" id="resultCode" readonly></textarea>
+        <button class="btn btn-dark" id="copyCodeBtn" style="margin-top:10px">Copy code</button>
+      </div>
+    </details>
+  </div>
+
+  <div class="card no-print">
+    <h2>Use notes</h2>
+    <ol class="small muted" style="padding-left:20px;line-height:1.8">
+      <li>The instrument produces the work order, not a report card. Score → identify the bottleneck → intervene at that area only → retest at 90 days. A section that has not moved by retest means the intervention was wrong, not that more time is needed.</li>
+      <li>Compare owner and manager copies before discussing results. A spread of more than 8 points on any section means the leadership team is not seeing the same business. That finding usually outranks whatever the scores themselves say.</li>
+      <li>Score before the discovery conversation, not during it. Owners revise their answers in real time when a consultant is watching.</li>
+      <li>Retest data is the proof asset. Three clients with documented pre/post burden reductions is more persuasive than any case study written in prose.</li>
+    </ol>
+  </div>
+
+  <div class="cta no-print" id="ctaBlock">
+    <h2>Where this goes next</h2>
+    <p id="ctaCopy">Your scored bottleneck is the starting point of the conversation, not the end of it. Bring this result to a diagnostic call and we will work the indicated area.</p>
+    <a class="btn btn-primary" id="bookBtn" href="#">Book a diagnostic call</a>
+  </div>
+</section>
+
+</main>
+
+<footer>Operational Health Assessment · Rate on the last 90 days · Retest at 90 days</footer>
+
+<script>
+/* ============================================================
+   CONFIG — edit these four values and nothing else is required.
+   ============================================================ */
+const CONFIG = {
+  // Where "Email my results" sends to. Opens the visitor's mail client
+  // with a fully-formatted summary in the body.
+  notifyEmail: 'info@practiceops.us',
+
+  // Your scheduling link (Calendly, Acuity, etc.). Leave '#' to hide the button.
+  bookingUrl: '#',
+
+  // Optional POST endpoint (Formspree, Netlify Forms, Zapier catch hook, etc.).
+  // If set, results are posted there when the visitor clicks "Email my results".
+  // Leave '' to use the mailto fallback only.
+  formEndpoint: '',
+
+  // localStorage key. Bump the version if you ever change the item list.
+  storageKey: 'oha_v1'
+};
+
+/* ============================================================
+   INSTRUMENT
+   ============================================================ */
+const SECTIONS = [
+  { title:'Owner Capacity', sub:'The operator’s reserve, clarity, and control', items:[
+    'Dread when opening the schedule, inbox, or bank balance',
+    'Working on days that were meant to be off',
+    'Loss of conviction about why this business exists',
+    'Decisions deferred, revisited, or reversed repeatedly',
+    'Reluctance to hand off work you know you shouldn’t be doing',
+    'Guilt or restlessness when not working',
+    'Owner pay taken last, reduced, or skipped',
+    'Sense that the business owns you rather than the reverse'
+  ]},
+  { title:'Intake & Conversion', sub:'How new clients and revenue enter the business', items:[
+    'Inquiries that sit unanswered beyond 24 hours',
+    'Leads that never convert to a first appointment or call',
+    'New clients unclear about what happens next',
+    'No-shows or cancellations at the first visit',
+    'Intake forms incomplete, late, or collected in the room',
+    'Referrals received but never followed up',
+    'First-visit experience that varies by who is working',
+    'Payment collected late or inconsistently at start of care'
+  ]},
+  { title:'Risk & Resilience', sub:'Exposure, concentration, and ability to absorb a shock', items:[
+    'One client, payer, or referral source carrying a large share of revenue',
+    'Critical knowledge existing only in one person’s head',
+    'Expired, missing, or unsigned agreements',
+    'Documentation or compliance you would rather not have audited',
+    'No coverage plan if you were unavailable for 30 days',
+    'Credentialing, licensure, or insurance items past due',
+    'Unresolved conflict with a partner, contractor, or staff member',
+    'Insufficient reserve to absorb one bad month'
+  ]},
+  { title:'Profit & Cash', sub:'Margin, pricing, and unit economics', items:[
+    'A full schedule that does not produce proportional income',
+    'Uncertainty about the true cost to deliver a single service',
+    'Routine discounting, write-offs, or unbilled work',
+    'Revenue that swings unpredictably month to month',
+    'Paying for software, space, or services no longer used',
+    'Personal draw that fluctuates or gets skipped',
+    'Debt or credit used to cover operating expenses',
+    'Prices unchanged for more than 18 months'
+  ]},
+  { title:'Waste & Overhead', sub:'Drag, duplication, and work sitting at the wrong pay grade', items:[
+    'Administrative work landing on the owner’s desk',
+    'Tasks being done by someone paid more than the task is worth',
+    'Services or offers kept out of habit rather than profit',
+    'Meetings that end without a decision or owner',
+    'The same information entered into more than one system',
+    'A backlog of started-but-unfinished projects',
+    'Physical or digital clutter that slows the work down',
+    'Interruptions that prevent any block of concentrated work'
+  ]},
+  { title:'Flow & Handoffs', sub:'Movement of clients and work through the business', items:[
+    'Prospects stalling at the same point every time',
+    'Clients dropping off midway through a plan of care',
+    'Work sitting idle while waiting on one person',
+    'Handoffs between team members that lose information',
+    'No visibility into where a given client is in the process',
+    'Rework caused by something missed upstream',
+    'Follow-up that happens only when someone remembers',
+    'Engagements that end without a defined next step'
+  ]},
+  { title:'Clarity & Communication', sub:'Message outward, signal inward', items:[
+    'Prospects who cannot restate what you do after hearing it',
+    'Website or materials that describe you rather than the client',
+    'Team unclear on the current priority',
+    'Problems surfacing late, or only after they have grown',
+    'The same question asked repeatedly by clients',
+    'Feedback given only during conflict or review season',
+    'Decisions made but never communicated downward',
+    'Marketing message changed frequently without measured result'
+  ]},
+  { title:'Structure & Accountability', sub:'Seats, ownership, and documented process', items:[
+    'Work that halts entirely when the owner is away',
+    'Two people accountable for the same outcome — or no one',
+    'Processes that live in memory rather than in writing',
+    'Roles defined by activity lists rather than measurable outcomes',
+    'New hires taking a long time to become productive',
+    'Recurring problems that get re-solved from scratch each time',
+    'No regular meeting where the numbers are actually reviewed',
+    'Tools or software the team does not use consistently'
+  ]}
+];
+
+const SCALE = [
+  { v:0, tag:'Never',        aria:'never or almost never occurs' },
+  { v:1, tag:'Occ · mild',   aria:'occasionally occurs, impact is not severe' },
+  { v:2, tag:'Occ · severe', aria:'occasionally occurs, impact is severe' },
+  { v:3, tag:'Freq · mild',  aria:'frequently occurs, impact is not severe' },
+  { v:4, tag:'Freq · severe',aria:'frequently occurs, impact is severe' }
+];
+
+const BANDS = [
+  { max:20,  name:'Optimal function',   cls:'band-optimal',
+    action:'Maintenance. Optimization work is appropriate. Growth capacity present.' },
+  { max:60,  name:'Mild dysfunction',   cls:'band-mild',
+    action:'Single-area intervention. The business is stable; treat the highest section.' },
+  { max:120, name:'Moderate dysfunction',cls:'band-moderate',
+    action:'Active intervention. Removal work required before any structural or growth build.' },
+  { max:256, name:'Severe dysfunction', cls:'band-severe',
+    action:'Crisis state. Removal only. Do not add systems, staff, offers, or marketing spend.' }
+];
+
+const HIGH = 16, LOW = 8;
+
+const PATTERNS = [
+  { name:'Margin consumed by drag',
+    test:s => s[3] >= HIGH && s[4] >= HIGH,
+    read:'High Profit & Cash together with high Waste & Overhead. Margin is being consumed by drag, not by underpricing. Cut before you reprice.' },
+  { name:'Intake mechanics, not messaging',
+    test:s => s[1] >= HIGH && s[6] <= LOW,
+    read:'High Intake & Conversion with low Clarity & Communication. The message is landing; the mechanics behind it are not. Stop buying leads.' },
+  { name:'Positioning problem',
+    test:s => s[6] >= HIGH && others(s,6).every(v => v <= LOW),
+    read:'High Clarity & Communication with low everything else. This is message work, not operations work.' },
+  { name:'Genuine systems gap',
+    test:s => s[7] >= HIGH && s[0] <= LOW,
+    read:'High Structure & Accountability with low Owner Capacity. The rare business where an org chart is actually the answer.' },
+  { name:'Owner identity and control',
+    test:s => s[7] >= HIGH && s[0] >= HIGH,
+    read:'High Structure & Accountability with high Owner Capacity. This is not a systems problem. Structure applied here becomes scaffolding.' },
+  { name:'Silent exposure',
+    test:s => s[2] >= HIGH && others(s,2).every(v => v <= LOW),
+    read:'Risk & Resilience high while everything else is low. A functioning business carrying undetected exposure — the most dangerous profile on the instrument.' }
+];
+
+function others(s, i){ return s.filter((_, j) => j !== i); }
+
+/* ============================================================
+   STATE
+   ============================================================ */
+const TOTAL_ITEMS = 64;
+let answers = new Array(TOTAL_ITEMS).fill(null);
+let current = 0;                 // section index while answering
+let profile = { name:'', biz:'', email:'', role:'' };
+
+const $ = id => document.getElementById(id);
+const esc = str => String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* ---------- persistence ---------- */
+function save(){
+  try{
+    localStorage.setItem(CONFIG.storageKey, JSON.stringify({ answers, current, profile }));
+  }catch(e){ /* private browsing — carry on without saving */ }
+}
+function load(){
+  try{
+    const raw = localStorage.getItem(CONFIG.storageKey);
+    if(!raw) return null;
+    const data = JSON.parse(raw);
+    if(!Array.isArray(data.answers) || data.answers.length !== TOTAL_ITEMS) return null;
+    return data;
+  }catch(e){ return null; }
+}
+function clearSaved(){
+  try{ localStorage.removeItem(CONFIG.storageKey); }catch(e){}
+}
+
+/* ---------- scoring ---------- */
+function sectionScores(arr){
+  return SECTIONS.map((_, s) =>
+    arr.slice(s*8, s*8+8).reduce((sum, v) => sum + (v || 0), 0)
+  );
+}
+function bandFor(total){
+  return BANDS.find(b => total <= b.max) || BANDS[BANDS.length-1];
+}
+function answeredCount(){ return answers.filter(v => v !== null).length; }
+
+/* Bottleneck / Capacity rules. Returns a decision object. */
+function treatmentTarget(secs){
+  if(secs[0] >= 20){
+    return { rule:'capacity', index:0, score:secs[0] };
+  }
+  const max = Math.max(...secs);
+  if(max >= HIGH){
+    const tied = secs.map((v,i)=>({v,i})).filter(o => o.v === max);
+    return { rule:'bottleneck', index:tied[0].i, score:max, tied:tied.map(o=>o.i) };
+  }
+  return { rule:'none', index:-1, score:max };
+}
+
+/* ---------- result code ---------- */
+function b64encode(str){
+  const bytes = new TextEncoder().encode(str);
+  let bin = '';
+  bytes.forEach(b => { bin += String.fromCharCode(b); });
+  return btoa(bin);
+}
+function b64decode(code){
+  const bin = atob(code);
+  const bytes = Uint8Array.from(bin, c => c.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+}
+function encodeResult(){
+  const payload = {
+    v:1,
+    n:profile.name, b:profile.biz, r:profile.role,
+    d:new Date().toISOString().slice(0,10),
+    s:answers.map(v => v === null ? 0 : v).join('')
+  };
+  return b64encode(JSON.stringify(payload));
+}
+function decodeResult(code){
+  const p = JSON.parse(b64decode(code.trim().replace(/\s+/g, '')));
+  if(typeof p.s !== 'string' || p.s.length !== TOTAL_ITEMS) throw new Error('bad length');
+  return { meta:p, arr:p.s.split('').map(Number) };
+}
+
+/* ============================================================
+   RENDER — questions
+   ============================================================ */
+function renderSection(idx){
+  const sec = SECTIONS[idx];
+  $('secCounter').textContent = 'Section ' + (idx+1) + ' of 8';
+  $('secTitle').textContent = sec.title;
+  $('secSub').textContent = sec.sub;
+
+  const form = $('itemsForm');
+  form.innerHTML = sec.items.map((text, i) => {
+    const gi = idx*8 + i;
+    return `<div class="item" id="item-${gi}" data-gi="${gi}" role="group" aria-labelledby="lab-${gi}">
+      <p class="q" id="lab-${gi}"><span class="idx">${i+1}</span><span>${esc(text)}</span></p>
+      <div class="scale">` +
+      SCALE.map(o => `
+        <input type="radio" name="q${gi}" id="q${gi}v${o.v}" value="${o.v}" aria-label="${o.v} — ${esc(o.aria)}"${answers[gi] === o.v ? ' checked' : ''}>
+        <label for="q${gi}v${o.v}">${o.v}<small>${o.tag}</small></label>`).join('') +
+      `</div></div>`;
+  }).join('');
+
+  $('backBtn').textContent = idx === 0 ? 'Back to instructions' : 'Back';
+  $('nextBtn').textContent = idx === SECTIONS.length - 1 ? 'See my results' : 'Next section';
+  $('secNotice').hidden = true;
+  updateProgress();
+  window.scrollTo(0, 0);
+}
+
+function updateProgress(){
+  const n = answeredCount();
+  $('progressBar').style.width = (n / TOTAL_ITEMS * 100) + '%';
+  $('secProgressText').textContent = n + ' of ' + TOTAL_ITEMS + ' items answered';
+}
+
+/* answer capture (delegated) */
+$('itemsForm').addEventListener('change', e => {
+  if(e.target.type !== 'radio') return;
+  const gi = Number(e.target.name.slice(1));
+  answers[gi] = Number(e.target.value);
+  document.getElementById('item-' + gi).classList.remove('unanswered');
+  updateProgress();
+  save();
+});
+
+/* keyboard: 0–4 sets the focused item */
+$('itemsForm').addEventListener('keydown', e => {
+  if(!/^[0-4]$/.test(e.key)) return;
+  const item = e.target.closest('.item');
+  if(!item) return;
+  const gi = item.dataset.gi;
+  const input = document.getElementById('q' + gi + 'v' + e.key);
+  if(input){ input.checked = true; input.dispatchEvent(new Event('change',{bubbles:true})); input.focus(); e.preventDefault(); }
+});
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+function show(screen){
+  ['intro','questions','results'].forEach(s => $('screen-' + s).hidden = (s !== screen));
+  $('progressShell').hidden = (screen !== 'questions');
+}
+
+function readProfile(){
+  profile = {
+    name:  $('raterName').value.trim(),
+    biz:   $('bizName').value.trim(),
+    email: $('raterEmail').value.trim(),
+    role:  $('raterRole').value
+  };
+  save();
+}
+
+$('startBtn').addEventListener('click', () => {
+  readProfile();
+  current = 0;
+  show('questions');
+  renderSection(current);
+});
+
+$('resumeBtn').addEventListener('click', () => {
+  const data = load();
+  if(!data) return;
+  answers = data.answers;
+  profile = data.profile || profile;
+  $('raterName').value = profile.name || '';
+  $('bizName').value = profile.biz || '';
+  $('raterEmail').value = profile.email || '';
+  if(profile.role) $('raterRole').value = profile.role;
+  current = Math.min(data.current || 0, SECTIONS.length - 1);
+  show('questions');
+  renderSection(current);
+});
+
+$('backBtn').addEventListener('click', () => {
+  if(current === 0){ show('intro'); window.scrollTo(0,0); return; }
+  current--; save(); renderSection(current);
+});
+
+$('nextBtn').addEventListener('click', () => {
+  const missing = [];
+  for(let i = 0; i < 8; i++){
+    const gi = current*8 + i;
+    if(answers[gi] === null) missing.push(gi);
+  }
+  if(missing.length){
+    missing.forEach(gi => document.getElementById('item-' + gi).classList.add('unanswered'));
+    const n = $('secNotice');
+    n.textContent = missing.length === 1
+      ? 'One item is still unrated. Give it your first instinct — a considered score is a less accurate score.'
+      : missing.length + ' items are still unrated. Give each your first instinct — a considered score is a less accurate score.';
+    n.hidden = false;
+    document.getElementById('item-' + missing[0]).scrollIntoView({ behavior:'smooth', block:'center' });
+    return;
+  }
+  if(current === SECTIONS.length - 1){
+    save();
+    renderResults();
+    show('results');
+    window.scrollTo(0,0);
+  } else {
+    current++; save(); renderSection(current);
+  }
+});
+
+/* ============================================================
+   RENDER — results
+   ============================================================ */
+function barColor(v){
+  if(v >= 24) return 'var(--band-severe)';
+  if(v >= HIGH) return 'var(--band-moderate)';
+  if(v >= 9)  return 'var(--band-mild)';
+  return 'var(--band-optimal)';
+}
+
+function renderResults(){
+  const secs = sectionScores(answers);
+  const total = secs.reduce((a,b) => a+b, 0);
+  const band = bandFor(total);
+  const target = treatmentTarget(secs);
+
+  /* hero */
+  $('totalNum').textContent = total;
+  const chip = $('bandChip');
+  chip.textContent = band.name;
+  chip.className = 'band ' + band.cls;
+  $('bandAction').textContent = band.action;
+
+  /* target */
+  let html = '';
+  if(target.rule === 'capacity'){
+    html = `<div class="callout crit">
+      <h3>Rule 2 — The Capacity Rule applies</h3>
+      <p><strong>Owner Capacity scored ${target.score} / 32.</strong> It is addressed first no matter what else scored higher. An operator in that range cannot execute any downstream intervention, and every system built for them will fail on adherence rather than design.</p>
+    </div>`;
+    const maxOther = Math.max(...secs.slice(1));
+    if(maxOther >= HIGH){
+      const oi = secs.indexOf(maxOther, 1);
+      html += `<p class="small muted"><strong>${esc(SECTIONS[oi].title)}</strong> also scored at or above the bottleneck threshold (${maxOther} / 32). It is the second target — after capacity is restored, not alongside it.</p>`;
+    }
+  } else if(target.rule === 'bottleneck'){
+    const t = SECTIONS[target.index];
+    html = `<div class="callout warn">
+      <h3>Rule 1 — The Bottleneck Rule applies</h3>
+      <p><strong>${esc(t.title)} scored ${target.score} / 32</strong> — at or above 50% of maximum. This is the treatment target regardless of total burden. Fix this area first. One area. Not all eight.</p>
+      <p class="small muted">${esc(t.sub)}</p>
+    </div>`;
+    if(target.tied && target.tied.length > 1){
+      html += `<p class="small muted">Note: ${target.tied.length} sections tied at ${target.score} — ${target.tied.map(i => esc(SECTIONS[i].title)).join(', ')}. Treat the one closest to cash first.</p>`;
+    }
+  } else {
+    html = `<div class="callout">
+      <h3>No section has reached the bottleneck threshold</h3>
+      <p>No single area scored 16 or higher, so there is no forced treatment target. The highest section (<strong>${esc(SECTIONS[secs.indexOf(target.score)].title)}, ${target.score} / 32</strong>) is where optimization work is best spent.</p>
+    </div>`;
+  }
+  $('targetBox').innerHTML = html;
+
+  /* bars */
+  $('bars').innerHTML = secs.map((v, i) => {
+    const isTarget = i === target.index;
+    return `<div class="bar-row">
+      <div class="name">${esc(SECTIONS[i].title)}${isTarget ? '<span class="tag">Target</span>' : ''}</div>
+      <div class="track"><div class="fill" style="width:${v/32*100}%;background:${barColor(v)}"></div><div class="threshold"></div></div>
+      <div class="val">${v} / 32</div>
+    </div>`;
+  }).join('');
+
+  /* patterns */
+  const hits = PATTERNS.filter(p => p.test(secs));
+  $('patterns').innerHTML = hits.length
+    ? hits.map(p => `<div class="pattern"><h4>${esc(p.name)}</h4><p>${esc(p.read)}</p></div>`).join('')
+    : `<div class="pattern"><h4>No signature pattern detected</h4><p>The profile does not match one of the six known combinations. Read the bottleneck on its own terms — the highest section is the finding.</p></div>`;
+
+  /* summary table */
+  const rows = secs.map((v,i) =>
+    `<tr class="${v >= HIGH ? 'hot' : ''}"><td>${i+1}</td><td>${esc(SECTIONS[i].title)}</td><td class="num">${v} / 32</td></tr>`
+  ).join('');
+  $('summaryTable').innerHTML =
+    `<thead><tr><th style="width:40px">#</th><th>Area</th><th class="num">Subtotal</th></tr></thead>
+     <tbody>${rows}<tr class="total"><td></td><td>Total Operational Burden</td><td class="num">${total} / 256</td></tr></tbody>`;
+
+  /* result code */
+  $('resultCode').value = encodeResult();
+
+  /* booking */
+  if(CONFIG.bookingUrl && CONFIG.bookingUrl !== '#'){
+    $('bookBtn').href = CONFIG.bookingUrl;
+  } else {
+    $('bookBtn').hidden = true;
+  }
+}
+
+/* ---------- plain-text summary ---------- */
+function textSummary(){
+  const secs = sectionScores(answers);
+  const total = secs.reduce((a,b)=>a+b,0);
+  const band = bandFor(total);
+  const target = treatmentTarget(secs);
+  const L = [];
+  L.push('OPERATIONAL HEALTH ASSESSMENT');
+  L.push('Date: ' + new Date().toLocaleDateString());
+  if(profile.biz)  L.push('Business: ' + profile.biz);
+  if(profile.name) L.push('Rater: ' + profile.name + (profile.role ? ' (' + profile.role + ')' : ''));
+  if(profile.email)L.push('Email: ' + profile.email);
+  L.push('');
+  L.push('TOTAL OPERATIONAL BURDEN: ' + total + ' / 256');
+  L.push('Classification: ' + band.name);
+  L.push('Indicated action: ' + band.action);
+  L.push('');
+  L.push('SECTION SCORES');
+  secs.forEach((v,i) => L.push('  ' + (i+1) + '. ' + SECTIONS[i].title.padEnd(28,' ') + v + ' / 32' + (v >= HIGH ? '   << at or above threshold' : '')));
+  L.push('');
+  if(target.rule === 'capacity'){
+    L.push('TREATMENT TARGET: Owner Capacity (Rule 2 — Capacity Rule, scored ' + target.score + ')');
+  } else if(target.rule === 'bottleneck'){
+    L.push('TREATMENT TARGET: ' + SECTIONS[target.index].title + ' (Rule 1 — Bottleneck Rule, scored ' + target.score + ')');
+  } else {
+    L.push('TREATMENT TARGET: none forced — no section reached 16. Optimization appropriate.');
+  }
+  const hits = PATTERNS.filter(p => p.test(secs));
+  if(hits.length){
+    L.push('');
+    L.push('PATTERNS');
+    hits.forEach(p => L.push('  - ' + p.name + ': ' + p.read));
+  }
+  L.push('');
+  L.push('RESULT CODE (for retest / owner-manager comparison)');
+  L.push(encodeResult());
+  return L.join('\n');
+}
+
+/* ---------- results actions ---------- */
+$('printBtn').addEventListener('click', () => window.print());
+
+async function copyText(text, btn, done){
+  const original = btn.textContent;
+  try{
+    await navigator.clipboard.writeText(text);
+  }catch(e){
+    const ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); }catch(_){}
+    document.body.removeChild(ta);
+  }
+  btn.textContent = done;
+  setTimeout(() => { btn.textContent = original; }, 1800);
+}
+$('copyBtn').addEventListener('click', e => copyText(textSummary(), e.target, 'Copied'));
+$('copyCodeBtn').addEventListener('click', e => copyText($('resultCode').value, e.target, 'Copied'));
+
+$('emailBtn').addEventListener('click', async e => {
+  const body = textSummary();
+  const subject = 'Operational Health Assessment — ' + (profile.biz || profile.name || 'result');
+  if(CONFIG.formEndpoint){
+    const btn = e.target, original = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Sending…';
+    try{
+      const secs = sectionScores(answers);
+      await fetch(CONFIG.formEndpoint, {
+        method:'POST',
+        headers:{ 'Content-Type':'application/json', 'Accept':'application/json' },
+        body: JSON.stringify({
+          name:profile.name, business:profile.biz, email:profile.email, role:profile.role,
+          total: secs.reduce((a,b)=>a+b,0),
+          sections: Object.fromEntries(SECTIONS.map((s,i)=>[s.title, secs[i]])),
+          summary: body,
+          code: encodeResult()
+        })
+      });
+      btn.textContent = 'Sent';
+    }catch(err){
+      btn.textContent = 'Send failed';
+      window.location.href = 'mailto:' + CONFIG.notifyEmail + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    }
+    setTimeout(() => { btn.disabled = false; btn.textContent = original; }, 2500);
+  } else {
+    window.location.href = 'mailto:' + CONFIG.notifyEmail + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  }
+});
+
+$('restartBtn').addEventListener('click', () => {
+  if(!confirm('Clear all answers and start a new assessment?')) return;
+  answers = new Array(TOTAL_ITEMS).fill(null);
+  current = 0;
+  clearSaved();
+  $('resumeBtn').hidden = true;
+  show('intro');
+  window.scrollTo(0,0);
+});
+
+/* ============================================================
+   OWNER / MANAGER COMPARISON
+   ============================================================ */
+$('cmpBtn').addEventListener('click', () => {
+  const out = $('cmpOut');
+  let a, b;
+  try{
+    a = decodeResult($('cmpA').value);
+    b = decodeResult($('cmpB').value);
+  }catch(e){
+    out.innerHTML = '<div class="notice">One of those codes could not be read. Paste the full code exactly as it was copied from the results page.</div>';
+    return;
+  }
+  const sa = sectionScores(a.arr), sb = sectionScores(b.arr);
+  const ta = sa.reduce((x,y)=>x+y,0), tb = sb.reduce((x,y)=>x+y,0);
+  const labelA = a.meta.n || a.meta.r || 'Copy A';
+  const labelB = b.meta.n || b.meta.r || 'Copy B';
+
+  const rows = sa.map((v,i) => {
+    const d = Math.abs(v - sb[i]);
+    return `<tr class="${d > 8 ? 'hot' : ''}">
+      <td>${esc(SECTIONS[i].title)}</td>
+      <td class="num">${v}</td><td class="num">${sb[i]}</td>
+      <td class="num">${d}${d > 8 ? ' ⚑' : ''}</td></tr>`;
+  }).join('');
+
+  const flagged = sa.filter((v,i) => Math.abs(v - sb[i]) > 8).length;
+  out.innerHTML =
+    `<table class="summary">
+      <thead><tr><th>Area</th><th class="num">${esc(labelA)}</th><th class="num">${esc(labelB)}</th><th class="num">Spread</th></tr></thead>
+      <tbody>${rows}
+        <tr class="total"><td>Total</td><td class="num">${ta}</td><td class="num">${tb}</td><td class="num">${Math.abs(ta-tb)}</td></tr>
+      </tbody>
+    </table>` +
+    (flagged
+      ? `<div class="callout warn" style="margin-top:16px"><h3>${flagged} section${flagged>1?'s':''} flagged</h3><p>A spread of more than 8 points means the leadership team is not seeing the same business. That finding usually outranks whatever the scores themselves say — and it is almost always a Clarity &amp; Communication finding, whatever the flagged section is called.</p></div>`
+      : `<div class="callout" style="margin-top:16px"><h3>No section spread above 8 points</h3><p>The leadership team is reading the business the same way. Proceed on the scores themselves.</p></div>`);
+});
+
+/* ============================================================
+   BOOT
+   ============================================================ */
+(function boot(){
+  const saved = load();
+  if(saved && saved.answers.some(v => v !== null)){
+    $('resumeBtn').hidden = false;
+    const p = saved.profile || {};
+    $('raterName').value = p.name || '';
+    $('bizName').value = p.biz || '';
+    $('raterEmail').value = p.email || '';
+    if(p.role) $('raterRole').value = p.role;
+  }
+  if(CONFIG.bookingUrl === '#') $('bookBtn').hidden = true;
+})();
+</script>
+</body>
+</html>
